@@ -180,9 +180,9 @@ void printModelPath(mdl_t* mdl);
     	tag_label(mdl, fin, fout);
     	//info("* Done\n");
     	// And close files
-    	if (mdl->opt->input != NULL)
+//    	if (mdl->opt->input != NULL)
     		fclose(fin);
-    	if (mdl->opt->output != NULL)
+  //  	if (mdl->opt->output != NULL)
     		fclose(fout);
 
         return outBuf;
