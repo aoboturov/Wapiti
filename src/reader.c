@@ -356,6 +356,10 @@ static seq_t *rdr_pattok2seq(rdr_t *rdr, const tok_t *tok) {
 		for (uint32_t x = 0; x < rdr->npats; x++) {
 			// Get the observation and map it to an identifier
 			char *obs = pat_exec(rdr->pats[x], tok, t);
+            if (!obs) {
+                rdr_freeseq(seq);
+                return NULL;
+            }
 			uint64_t id = rdr_mapobs(rdr, obs);
 			if (id == none) {
 				free(obs);
@@ -441,6 +445,7 @@ seq_t *rdr_raw2seq(rdr_t *rdr, const raw_t *raw, bool lbl) {
 		seq = rdr_rawtok2seq(rdr, tok);
 	else
 		seq = rdr_pattok2seq(rdr, tok);
+
 	// Before returning the sequence, we have to free the tok_t
 	for (uint32_t t = 0; t < T; t++) {
 		if (tok->cnts[t] == 0)

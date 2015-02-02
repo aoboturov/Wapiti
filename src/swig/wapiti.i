@@ -177,7 +177,10 @@ void printModelPath(mdl_t* mdl);
 
     	// Do the labelling
     	//info("* Label sequences\n");
-    	tag_label(mdl, fin, fout);
+    	if (!tag_label(mdl, fin, fout)) {
+            warning("Cannot apply patterns, most likely wrong input data\n");
+            return NULL;
+        }
     	//info("* Done\n");
     	// And close files
 //    	if (mdl->opt->input != NULL)

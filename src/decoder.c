@@ -415,7 +415,7 @@ void tag_nbviterbi(mdl_t *mdl, const seq_t *seq, uint32_t N,
  *   output error rates during the labelling and detailed statistics per label
  *   at the end.
  */
-void tag_label(mdl_t *mdl, FILE *fin, FILE *fout) {
+int tag_label(mdl_t *mdl, FILE *fin, FILE *fout) {
 	qrk_t *lbls = mdl->reader->lbl;
 	const uint32_t Y = mdl->nlbl;
 	const uint32_t N = mdl->opt->nbest;
@@ -440,6 +440,10 @@ void tag_label(mdl_t *mdl, FILE *fin, FILE *fout) {
 			break;
 		seq_t *seq = rdr_raw2seq(mdl->reader, raw,
 			mdl->opt->check | mdl->opt->force);
+        if (seq == NULL) {
+            rdr_freeraw(raw);
+            return 0;
+        }
 		const uint32_t T = seq->len;
 		uint32_t *out = xmalloc(sizeof(uint32_t) * T * N);
 		double   *psc = xmalloc(sizeof(double  ) * T * N);
@@ -526,6 +530,8 @@ void tag_label(mdl_t *mdl, FILE *fin, FILE *fout) {
 			info("  F1=%.2f\n", F1);
 		}
 	}
+    
+    return 1;
 }
 
 /* eval_t:
