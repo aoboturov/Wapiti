@@ -31,6 +31,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <locale.h>
 
 #include "wapiti.h"
 #include "model.h"
@@ -264,6 +265,7 @@ void mdl_compact(mdl_t *mdl) {
  *   Save a model to be restored later in a platform independant way.
  */
 void mdl_save(mdl_t *mdl, FILE *file) {
+	setlocale(LC_ALL, "C");
 	uint64_t nact = 0;
 	for (uint64_t f = 0; f < mdl->nftr; f++)
 		if (mdl->theta[f] != 0.0)
@@ -282,6 +284,7 @@ void mdl_save(mdl_t *mdl, FILE *file) {
  *   this function an empty model fresh from mdl_new.
  */
 void mdl_load(mdl_t *mdl, FILE *file) {
+	setlocale(LC_ALL, "C");
 	const char *err = "invalid model format";
 	uint64_t nact = 0;
 	int type;
