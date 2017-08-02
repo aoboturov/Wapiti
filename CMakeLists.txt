@@ -7,10 +7,10 @@ set(CMAKE_SKIP_BUILD_RPATH FALSE)
 set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
 
 set(CMAKE_EXE_LINKER_FLAGS
-    "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN/'" )
+    "${CMAKE_EXE_LINKER_FLAGS} -pthread -Wl,-rpath,'$ORIGIN/'" )
 
 set(CMAKE_SHARED_LINKER_FLAGS
-    "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-rpath,'$ORIGIN/'" )
+    "${CMAKE_SHARED_LINKER_FLAGS} -pthread -Wl,-rpath,'$ORIGIN/'" )
 
 find_package(JNI REQUIRED)
 
@@ -30,5 +30,7 @@ message ("Swig sources list: ${SOURCES_SWIG}")
 #SET_SOURCE_FILES_PROPERTIES( ${SOURCES} PROPERTIES LANGUAGE CXX )
 
 add_library( wapiti SHARED ${SOURCES} ${SOURCES_SWIG})
+
+add_executable( wapiti_runner ${SOURCES} ${SOURCES_SWIG})
 
 set( CMAKE_VERBOSE_MAKEFILE on )

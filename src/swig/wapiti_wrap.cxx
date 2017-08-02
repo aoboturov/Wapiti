@@ -291,7 +291,7 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
     #include "fmemopen.h"
 
     #define BUF_SIZE 8192
-    #define PACKAGE "wapiti"
+    #define PACKAGE ("wapiti")
       
 
 
@@ -302,7 +302,7 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
       char str[BUF_SIZE];
       strncpy(str, arg, sizeof(str));
 
-      char* ptr[64];
+      const char* ptr[64];
       unsigned int size = 1;
       ptr[0] = PACKAGE;
 
@@ -333,7 +333,7 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
               strncpy(str, arg, sizeof(str));
               char* ptr[64];
               int size = 1;
-              ptr[0] = PACKAGE;
+              ptr[0] = (char *) PACKAGE;
 
               for (char *p = str; *p;) {
                 while (isspace(*p)) *p++ = '\0';
@@ -350,9 +350,9 @@ SWIGINTERN void SWIG_JavaException(JNIEnv *jenv, int code, const char *msg) {
 
     	opt->mode    = -1;
     	opt->input   = NULL;     opt->output  = NULL;
-    	opt->type    = "crf";
+    	opt->type    = (char *) "crf";
     	opt->maxent  = false;
-    	opt->algo    = "l-bfgs"; opt->pattern = NULL;  opt->model   = NULL; opt->devel   = NULL;
+    	opt->algo    = (char *) "l-bfgs"; opt->pattern = NULL;  opt->model   = NULL; opt->devel   = NULL;
     	opt->rstate  = NULL;     opt->sstate  = NULL;
     	opt->compact = false;    opt->sparse  = false;
     	opt->nthread = 1;        opt->jobsize = 64;    opt->maxiter = 0;
