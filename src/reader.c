@@ -216,13 +216,13 @@ raw_t *rdr_readraw(rdr_t *rdr, FILE *file) {
 		if (line == NULL)
 			break;
 		// Check for empty line marking the end of the current sequence
-		int len = strlen(line);
+		size_t len = strlen(line);
 		while (len != 0 && isspace(line[len - 1]))
 			len--;
 		if (len == 0) {
 			free(line);
 			// Special case when no line was already read, we try
-			// again. This allow multiple blank lines beetwen
+			// again. This allow multiple blank lines between
 			// sequences.
 			if (cnt == 0)
 				continue;
@@ -336,7 +336,7 @@ static seq_t *rdr_rawtok2seq(rdr_t *rdr, const tok_t *tok) {
 static seq_t *rdr_pattok2seq(rdr_t *rdr, const tok_t *tok) {
 	const uint32_t T = tok->len;
 	// So now the tok object is ready, we can start building the seq_t
-	// object by appling patterns. First we allocate the seq_t object. The
+	// object by applying patterns. First we allocate the seq_t object. The
 	// sequence itself as well as the sub array are allocated in one time.
 	seq_t *seq = xmalloc(sizeof(seq_t) + sizeof(pos_t) * T);
 	seq->raw = xmalloc(sizeof(uint64_t) * (rdr->nuni + rdr->nbi) * T);

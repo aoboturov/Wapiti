@@ -449,7 +449,7 @@ int tag_label(mdl_t *mdl, FILE *fin, FILE *fout) {
 		double   *psc = xmalloc(sizeof(double  ) * T * N);
 		double   *scs = xmalloc(sizeof(double  ) * N);
 		if (N == 1)
-			tag_viterbi(mdl, seq, (uint32_t*)out, scs, (double*)psc);
+			tag_viterbi(mdl, seq, out, scs, psc);
 		else
 			tag_nbviterbi(mdl, seq, N, (void*)out, scs, (void*)psc);
 		// Next we output the raw sequence with an aditional column for
